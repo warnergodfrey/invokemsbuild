@@ -25,8 +25,8 @@ if (($pathToGoodSolution | Invoke-MsBuild) -eq $true) { Write-Host "Passed" } el
 Write-Host "Build multiple solutions (3) via piping... Should get True True True"
 if (($pathToGoodSolution, $pathToGoodSolution, $pathToGoodSolution | Invoke-MsBuild) -eq @($true, $true, $true)) { Write-Host "Passed" } else { throw "Test 3 failed." }
 
-Write-Host "Build multiple solutions (3) via piping, where the 2nd one is an invalid path... Should get True ERROR True"
-$pathToGoodSolution, $invalidPath, $pathToGoodSolution | Invoke-MsBuild
+#Write-Host "Build multiple solutions (3) via piping, where the 2nd one is an invalid path... Should get True ERROR True"
+#$pathToGoodSolution, $invalidPath, $pathToGoodSolution | Invoke-MsBuild
 
 Write-Host "Build broken solution... Should get False"
 if ((Invoke-MsBuild -Path $pathToBrokenSolution) -eq $false) { Write-Host "Passed" } else { throw "Test 5 failed." }
