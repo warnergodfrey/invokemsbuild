@@ -1,6 +1,6 @@
 ## Invoke-MSBuild
 
-![Build status](https://ci.appveyor.com/api/projects/status/22y60ef0qbjcyc1h)](https://ci.appveyor.com/project/warnergodfrey/invokemsbuild)
+[![Build status](https://ci.appveyor.com/api/projects/status/22y60ef0qbjcyc1h)](https://ci.appveyor.com/project/warnergodfrey/invokemsbuild)
 
 ### Project Description
 A PowerShell module to make building projects with MsBuild easy. It provides many features like fire-and-forget, or build and wait to check if build succeeded.
