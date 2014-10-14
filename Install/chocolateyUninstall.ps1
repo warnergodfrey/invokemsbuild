@@ -1,6 +1,6 @@
 try
 {
-	$ModuleRoot = Join-Path $env:HOME "Documents\WindowsPowerShell\Modules"
+	$ModuleRoot = Join-Path $HOME "Documents\WindowsPowerShell\Modules"
 	$ModuleTarget = Join-Path $env:chocolateyPackageFolder "Modules"
 	Get-ChildItem $ModuleTarget | Foreach-Object { cmd /c rmdir "$ModuleRoot\$_" }
 

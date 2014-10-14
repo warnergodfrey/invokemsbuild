@@ -1,6 +1,6 @@
 try
 {
-	$ModuleRoot = Join-Path $env:HOME "Documents\WindowsPowerShell\Modules"
+	$ModuleRoot = Join-Path $HOME "Documents\WindowsPowerShell\Modules"
 	if (-not (Test-Path $ModuleRoot)) {
 		New-Item -Type directory $ModuleRoot
 	}
