@@ -1,6 +1,10 @@
 try
 {
-	$ModuleRoot = Join-Path $HOME "Documents\WindowsPowerShell\Modules"
+	$params = ConvertFrom-StringData -StringData ($env:chocolateyPackageParameters -replace ';', "`n")
+
+	$ModuleRoot = if ($params.PSModuleDirectory) { $params.PSModuleDirectory }
+		else { Join-Path $HOME "Documents\WindowsPowerShell\Modules" }
+
 	if (-not (Test-Path $ModuleRoot)) {
 		New-Item -Type directory $ModuleRoot
 	}
