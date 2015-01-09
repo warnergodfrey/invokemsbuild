@@ -20,7 +20,7 @@ The Invoke-MSBuild Cmdlet is distributed as a [Chocolatey package](https://choco
 
 - [Chocolatey](https://github.com/chocolatey/chocolatey/wiki/Installation)
 
-### Install Chocolatey Package
+#### Install Chocolatey Package
 
 Install the package using Chocolatey:
 
