@@ -12,12 +12,10 @@ if (-not (Test-Path $ModuleRoot)) {
   New-Item -Type directory $ModuleRoot
 }
 $ModuleTarget = Join-Path $env:chocolateyPackageFolder "Modules"
-Get-ChildItem $ModuleTarget | Foreach-Object {
-  if (Test-Path "$ModuleRoot\$_") {
-    cmd /c rmdir "$ModuleRoot\$_"
-  }
-  cmd /c mklink /j "$ModuleRoot\$_" "$ModuleTarget\$_"
-  Get-ChildItem -Path "$ModuleRoot\$_" -File -Recurse | Unblock-File
+if (Test-Path "$ModuleRoot\Invoke-MSBuild") {
+  cmd /c rmdir "$ModuleRoot\Invoke-MSBuild"
 }
+cmd /c mklink /j "$ModuleRoot\Invoke-MSBuild" "$ModuleTarget\Invoke-MSBuild"
+Get-ChildItem -Path "$ModuleRoot\$_" -File -Recurse | Unblock-File
 
 Write-ChocolateySuccess 'Invoke-MSBuild'
