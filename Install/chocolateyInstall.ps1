@@ -6,7 +6,7 @@ trap {
 $params = ConvertFrom-StringData -StringData ($env:chocolateyPackageParameters -replace ';', "`n")
 
 $ModuleRoot = if ($params.PSModuleDirectory) { $params.PSModuleDirectory }
-  else { Join-Path $HOME "Documents\WindowsPowerShell\Modules" }
+  else { Join-Path $env:USERPROFILE "Documents\WindowsPowerShell\Modules" }
 
 if (-not (Test-Path $ModuleRoot)) {
   New-Item -Type directory $ModuleRoot
