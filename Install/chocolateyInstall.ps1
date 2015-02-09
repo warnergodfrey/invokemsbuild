@@ -3,10 +3,12 @@ trap {
   Throw $_
 }
 
-$params = ConvertFrom-StringData -StringData ($env:chocolateyPackageParameters -replace ';', "`n")
+$params = ConvertFrom-StringData ($env:chocolateyPackageParameters -replace ';', "`n")
 
-$ModuleRoot = if ($params.PSModuleDirectory) { $params.PSModuleDirectory }
-  else { Join-Path $env:USERPROFILE "Documents\WindowsPowerShell\Modules" }
+$ModuleRoot = $params.PSModuleDirectory
+if (-not $ModuleRoot) {
+  $ModuleRoot = Join-Path $env:USERPROFILE "Documents\WindowsPowerShell\Modules"
+}
 
 if (-not (Test-Path $ModuleRoot)) {
   New-Item -Type directory $ModuleRoot
