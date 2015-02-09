@@ -1,25 +1,23 @@
-try
-{
-	$params = ConvertFrom-StringData -StringData ($env:chocolateyPackageParameters -replace ';', "`n")
-
-	$ModuleRoot = if ($params.PSModuleDirectory) { $params.PSModuleDirectory }
-		else { Join-Path $HOME "Documents\WindowsPowerShell\Modules" }
-
-	if (-not (Test-Path $ModuleRoot)) {
-		New-Item -Type directory $ModuleRoot
-	}
-	$ModuleTarget = Join-Path $env:chocolateyPackageFolder "Modules"
-	Get-ChildItem $ModuleTarget | Foreach-Object {
-		if (Test-Path "$ModuleRoot\$_") {
-			cmd /c rmdir "$ModuleRoot\$_"
-		}
-		cmd /c mklink /j "$ModuleRoot\$_" "$ModuleTarget\$_"
-		Get-ChildItem -Path "$ModuleRoot\$_" -File -Recurse | Unblock-File
-	}
-
-	Write-ChocolateySuccess 'Invoke-MSBuild'
-} catch {
-	Write-ChocolateyFailure 'Invoke-MSBuild' $($_.Exception.Message)
-	$host.SetShouldExit(1)
-	throw $_
+trap {
+  Write-ChocolateyFailure 'Invoke-MSBuild' $($_.Exception.Message)
+  Throw $_
 }
+
+$params = ConvertFrom-StringData ($env:chocolateyPackageParameters -replace ';', "`n")
+
+$ModuleRoot = $params.PSModuleDirectory
+if (-not $ModuleRoot) {
+  $ModuleRoot = Join-Path $env:USERPROFILE "Documents\WindowsPowerShell\Modules"
+}
+
+if (-not (Test-Path $ModuleRoot)) {
+  New-Item -Type directory $ModuleRoot
+}
+$ModuleTarget = Join-Path $env:chocolateyPackageFolder "Modules"
+if (Test-Path "$ModuleRoot\Invoke-MSBuild") {
+  cmd /c rmdir "$ModuleRoot\Invoke-MSBuild"
+}
+cmd /c mklink /j "$ModuleRoot\Invoke-MSBuild" "$ModuleTarget\Invoke-MSBuild"
+Get-ChildItem -Path "$ModuleRoot\$_" -File -Recurse | Unblock-File
+
+Write-ChocolateySuccess 'Invoke-MSBuild'
