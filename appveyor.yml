@@ -1,0 +1,28 @@
+version: 1.0.{build}
+build_script:
+- ps: >-
+    $env:BUILD_NUMBER=$env:APPVEYOR_BUILD_NUMBER
+
+    .\build.ps1 Package
+test_script:
+- ps: >-
+    .\build.ps1 Test
+
+    $build_success = $?
+
+
+    if (-not $?) {
+      exit 1
+    }
+artifacts:
+- path: Output\Packages\*.nupkg
+  name: Chocolatey Package
+deploy:
+- provider: NuGet
+  server: https://chocolatey.org/
+  api_key:
+    secure: P0fqLHcBUTPMdrVK3E2pNQjqvGsZxmYphuTr2nx5UgwGLPySUrDThN6s3Kqi5M3v
+- provider: NuGet
+  server: 
+  api_key:
+    secure: CFXD3pU80iUGa9u31EgpHArsO4byVKUfGYFFYD0m54pMgqYvQFmCsCP/3AIxufag
